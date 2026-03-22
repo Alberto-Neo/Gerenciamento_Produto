@@ -14,5 +14,28 @@ import java.util.List;
 
 public class ProdutoController {
 
+    @Autowired
+    private ProdutoService produtoService;
+
+    @GetMapping
+    public List<ProdutoModel> findAll() {
+        return produtoService.Listar();
+    }
+
+    @GetMapping("/{id}")
+    public ProdutoModel buscar(@PathVariable long id){
+        return produtoService.buscar(id);
+    }
+
+    @PostMapping
+    public ProdutoModel criarProduto(@RequestBody ProdutoModel produtoModel){
+        return produtoService.salvarProduto(produtoModel);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarProduto(@PathVariable Long id){
+        produtoService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }
